@@ -1,0 +1,77 @@
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion COMPILE_SDK_VERSION
+    buildToolsVersion BUILD_TOOLS_VERSION as String
+
+    defaultConfig {
+        minSdkVersion MIN_SDK_VERSION
+        targetSdkVersion TARGET_SDK_VERSION
+        versionCode VERSION_CODE as int
+        versionName VERSION_NAME as String
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    //屏蔽gradle检测到c自己调用jni
+    //http://www.liuling123.com/2016/05/android-studio-gradle-ndk-config.html
+    sourceSets {
+        main {
+            jni.srcDirs = [] //屏蔽gradle的jni生成过程
+            jniLibs.srcDirs = ['src/main/jniLibs']//设置目标的so存放路径
+        }
+    }
+
+}
+
+//Compile JNI source via NDK
+task ndkBuild(type: Exec) {
+//    def ndkDir = project.plugins.findPlugin('com.android.application').sdkHandler.getNdkFolder()
+    def ndkDir = android.ndkDirectory
+    //注：在mac下使用ndk-build ，在win下使用ndk-build.cmd
+    //notice: in mac use /ndk-build , in win use /ndk-build.cmd
+    commandLine "$ndkDir/ndk-build.cmd", '-C', 'src/main/jni',
+            "NDK_OUT=$buildDir/ndk/obj",
+            "NDK_APP_DST_DIR=$buildDir/ndk/libs/\$(TARGET_ARCH_ABI)"
+}
+
+task copyJniLibs(type: Copy, dependsOn:['ndkBuild']) {
+    from fileTree(dir: file(buildDir.absolutePath + '/ndk/libs'), include: '**/*.so')
+    into file('src/main/jniLibs')
+}
+
+tasks.withType(JavaCompile) {
+    compileTask -> compileTask.dependsOn 'ndkBuild','copyJniLibs'
+}
+
+task cleanNative(type: Exec, description: 'Clean JNI object files') {
+    def ndkDir = android.ndkDirectory
+    commandLine "$ndkDir/ndk-build.cmd",
+            '-C', file('src/main/jni').absolutePath, // Change src/main/jni the relative path to your jni source
+            'clean'
+}
+
+clean.dependsOn 'cleanNative'
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    compile 'com.android.support:appcompat-v7:25.0.0'
+    testCompile 'junit:junit:4.12'
+}
+
+//执行bintrayUpload之前必须执行gradlew install生成poms文件（build/poms）
+if (isForUpload2Maven()) {
+    println ':library:include upload 2 maven methods'
+    apply from: 'https://raw.githubusercontent.com/haodynasty/JCenter/master/installv1.gradle'
+    apply from: 'https://raw.githubusercontent.com/haodynasty/JCenter/master/bintrayv1.gradle'
+    apply from: 'https://raw.githubusercontent.com/haodynasty/JCenter/master/license.gradle'
+}
