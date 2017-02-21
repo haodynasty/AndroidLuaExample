@@ -3,6 +3,24 @@ update to Lua 5.3.3 and LuaJava ported to Android example
 
 [![Download][bintray_svg]][bintray_url]
 
+# Import
+add to build.gradle,${latest.version} is [![Download][bintray_svg]][bintray_url]
+```
+dependencies {
+    compile 'com.blakequ.luajava:luajava:${latest.version}'
+}
+```
+maven
+```
+<dependency>
+  <groupId>com.blakequ.luajava</groupId>
+  <artifactId>luajava</artifactId>
+  <version>${latest.version}</version>
+  <type>pom</type>
+</dependency>
+```
+
+
 # How to use
 you can download example and study how to use
 
@@ -52,28 +70,10 @@ private void executeLuaFile()
     }
 ```
 
-
-# Import
-add to build.gradle,${latest.version} is [![Download][bintray_svg]][bintray_url]
-```
-dependencies {
-    compile 'com.blakequ.luajava:luajava:${latest.version}'
-}
-```
-maven
-```
-<dependency>
-  <groupId>com.blakequ.luajava</groupId>
-  <artifactId>luajava</artifactId>
-  <version>${latest.version}</version>
-  <type>pom</type>
-</dependency>
-```
-
 # Link
-[AndroLua-mkottman](https://github.com/mkottman/AndroLua)
-[AndroLua-new](https://github.com/lendylongli/AndroLua)
-[LuaScriptCore](https://github.com/vimfung/LuaScriptCore)
+- [AndroLua-mkottman](https://github.com/mkottman/AndroLua)
+- [AndroLua-new](https://github.com/lendylongli/AndroLua)
+- [LuaScriptCore](https://github.com/vimfung/LuaScriptCore)
 
 
 [bintray_svg]: https://api.bintray.com/packages/haodynasty/maven/AndroidLua/images/download.svg
