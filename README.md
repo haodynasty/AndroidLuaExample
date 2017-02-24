@@ -1,6 +1,7 @@
 # AndroidLuaExample
 update to Lua 5.3.3 and LuaJava ported to Android example
 
+[![License][licence_svg]][licence_url]
 [![Download][bintray_svg]][bintray_url]
 
 # Import
@@ -78,3 +79,5 @@ private void executeLuaFile()
 
 [bintray_svg]: https://api.bintray.com/packages/haodynasty/maven/AndroidLua/images/download.svg
 [bintray_url]: https://bintray.com/haodynasty/maven/AndroidLua/_latestVersion
+[licence_svg]: https://img.shields.io/badge/license-Apache%202-green.svg
+[licence_url]: https://www.apache.org/licenses/LICENSE-2.0
