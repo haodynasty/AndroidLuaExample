@@ -71,6 +71,30 @@ private void executeLuaFile()
     }
 ```
 
+## 4. invoke lua and error handle
+```
+private void executeLuaFile2()
+    {
+            //in lua file not exist this method:GetNotMethod
+            mLuaState.getGlobal("GetNotMethod");
+            mLuaState.pushString("reload lua test");// input params
+            mLuaState.pushNumber(10);//not use pushInteger
+            //if using call will throw exception(can not catch), so you must use pcall
+            //success to invoke method if return 0, otherwise is error.
+            int retCode = mLuaState.pcall(2, 1, -1);//2 input, 1 output
+            String result = mLuaState.toString(-1);
+            if (retCode != 0){
+                LogUtils.e(TAG, "Fail to invoke GetNotMethod by lua errorCode:"+retCode+" errorMsg:"+result);
+            }else {
+                if (result == null){
+                    System.out.println("GetVersion return empty value");
+                }else {
+                    System.out.println("GetVersion return value"+result);
+                }
+            }
+    }
+```
+
 # Link
 - [AndroLua-mkottman](https://github.com/mkottman/AndroLua)
 - [AndroLua-new](https://github.com/lendylongli/AndroLua)
