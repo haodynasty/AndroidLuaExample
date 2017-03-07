@@ -3,7 +3,6 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 25
     buildToolsVersion '25.0.0'
-
     defaultConfig {
         applicationId "com.plusub.androidluaexample"
         minSdkVersion 18
@@ -14,6 +13,7 @@ android {
     buildTypes {
         release {
             minifyEnabled false
+            signingConfig signingConfigs.debug
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
@@ -24,8 +24,8 @@ tasks.withType(JavaCompile) {
 }
 
 dependencies {
-//    compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile project(':luajava')
-//    compile 'com.blakequ.luajava:luajava:1.0'
+    //    compile fileTree(dir: 'libs', include: ['*.jar'])
+//    compile project(':luajava')
+    compile 'com.blakequ.luajava:luajava:1.0'
     compile 'com.android.support:appcompat-v7:25.0.0'
 }

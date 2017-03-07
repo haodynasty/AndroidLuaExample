@@ -15,3 +15,10 @@
 #-keepclassmembers class fqcn.of.javascript.interface.for.webview {
 #   public *;
 #}
+
+# luajava
+-keep class org.keplerproject.luajava{*;}
+# For native methods
+-keepclasseswithmembernames class * {
+    native <methods>;
+}

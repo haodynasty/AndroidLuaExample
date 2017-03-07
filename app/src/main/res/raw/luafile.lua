@@ -72,6 +72,18 @@ function myfunction ()
 end
 
 function myfunction2 ()
+--    位运算
+    n = 1024>>2
+    Log:i("LuaLog", 'bit value1:'..n)
+    n = 1024|2
+    Log:i("LuaLog", 'bit value2:'..n)
+    n = 1024~2
+    Log:i("LuaLog", 'bit value3:'..n)
+    n = 1024&0
+    Log:i("LuaLog", 'bit value4:'..n)
+    n = ~1
+    Log:i("LuaLog", 'bit value5:'..n)
+--  异常抛出
     n = n/nil
 end
 

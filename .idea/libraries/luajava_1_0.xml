@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="luajava-1.0">
+    <CLASSES>
+      <root url="file://$USER_HOME$/.android/build-cache/1321a7b9eb69e3d97164089ac6aa27d12b21c216/output/res" />
+      <root url="jar://$USER_HOME$/.android/build-cache/1321a7b9eb69e3d97164089ac6aa27d12b21c216/output/jars/classes.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.blakequ.luajava/luajava/1.0/9aec3d7c82f3002f049d0ebda0961d681aef8a54/luajava-1.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

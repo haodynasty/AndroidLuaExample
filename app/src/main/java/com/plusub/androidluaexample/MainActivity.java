@@ -139,12 +139,17 @@ public class MainActivity extends ActionBarActivity {
 //            mLuaState.pushInteger(10);//不能输入int
 //            mLuaState.pushString("10");
             mLuaState.pushNumber(10);
-            mLuaState.call(2, 1);
+            int retCode = mLuaState.pcall(2, 1, -1);
             String result = mLuaState.toString(-1);
-            if (result == null){
-                System.out.println("GetVersion return empty value");
+            //retCode=0表示正确调用，否则有异常
+            if (retCode == 0){
+                if (result == null){
+                    System.out.println("GetVersion return empty value");
+                }else {
+                    System.out.println("GetVersion return value"+result);
+                }
             }else {
-                System.out.println("GetVersion return value"+result);
+                System.out.println("error:"+result+" code:"+retCode);
             }
 
             //test error
