@@ -27,7 +27,7 @@ you can download example and study how to use.
 add proguard rules
 ```
 # luajava
--keep class org.keplerproject.luajava{*;}
+-keep class org.keplerproject.luajava.**{*;}
 # For native methods
 -keepclasseswithmembernames class * {
     native <methods>;
